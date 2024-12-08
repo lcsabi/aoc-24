@@ -1,7 +1,6 @@
 package main
 
 import (
-	"aoc-24/utils"
 	"bufio"
 	"fmt"
 	"os"
@@ -9,40 +8,31 @@ import (
 	"strings"
 )
 
+func isSafe(levels []int) bool {
+	isIncreasing := levels[1] > levels[0]
+	for i := 1; i < len(levels); i++ {
+		diff := levels[i] - levels[i-1]
+		if diff == 0 || diff > 3 || diff < -3 {
+			return false
+		}
+		if (isIncreasing && diff < 0) || (!isIncreasing && diff > 0) {
+			return false
+		}
+	}
+	return true
+}
+
 func main() {
-	safeCount := 0
 	scanner := bufio.NewScanner(os.Stdin)
+	safeCount := 0
+
 	for scanner.Scan() {
-		strs := strings.Split(scanner.Text(), " ")
-		fst, _ := strconv.Atoi(strs[0])
-		snd, _ := strconv.Atoi(strs[1])
-		if fst == snd {
-			continue
+		parts := strings.Fields(scanner.Text())
+		levels := make([]int, len(parts))
+		for i, part := range parts {
+			levels[i], _ = strconv.Atoi(part)
 		}
-		if utils.AbsDiff(fst, snd) > 3 {
-			continue
-		}
-		idx := 1
-		if fst > snd { // Decreasing
-			for idx < len(strs)-1 {
-				left, _ := strconv.Atoi(strs[idx])
-				right, _ := strconv.Atoi(strs[idx+1])
-				if left <= right || left-right > 3 {
-					break
-				}
-				idx++
-			}
-		} else { // Increasing
-			for idx < len(strs)-1 {
-				left, _ := strconv.Atoi(strs[idx])
-				right, _ := strconv.Atoi(strs[idx+1])
-				if left >= right || left-right < -3 {
-					break
-				}
-				idx++
-			}
-		}
-		if idx == len(strs)-1 {
+		if isSafe(levels) {
 			safeCount++
 		}
 	}
