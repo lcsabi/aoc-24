@@ -1,0 +1,40 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.out
+*.a
+
+# Go vendor directory (if not using Go modules)
+vendor/
+
+# Test binary
+*.test
+
+# Logs and debug output
+*.log
+*.trace
+*.prof
+
+# IDE and editor-specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+*.bak
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+
+# Dependency directories for Go modules
+# Ignore if you want to vendor dependencies explicitly
+/go.sum
+/go.mod
+
+# Build and cache directories
+bin/
+pkg/
+*.o
+*.obj
