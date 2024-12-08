@@ -1,20 +1,13 @@
 package main
 
 import (
+	"aoc-24/utils"
 	"bufio"
 	"fmt"
 	"os"
 	"sort"
 	"strconv"
 )
-
-func absDiff(a int, b int) int {
-	diff := a - b
-	if diff < 0 {
-		return -diff
-	}
-	return diff
-}
 
 func main() {
 	lefts := make([]int, 0)
@@ -38,7 +31,7 @@ func main() {
 	totalDistance := 0
 	similarityScore := 0
 	for i := range len(lefts) {
-		totalDistance += absDiff(lefts[i], rights[i])
+		totalDistance += utils.AbsDiff(lefts[i], rights[i])
 		similarityScore += lefts[i] * rightFreqMap[lefts[i]]
 	}
 	fmt.Println(totalDistance)   // Part One
