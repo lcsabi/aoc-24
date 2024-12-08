@@ -19,6 +19,7 @@ func absDiff(a int, b int) int {
 func main() {
 	lefts := make([]int, 0)
 	rights := make([]int, 0)
+	rightFreqMap := make(map[int]int)
 
 	scanner := bufio.NewScanner(os.Stdin)
 	scanner.Split(bufio.ScanWords)
@@ -29,13 +30,17 @@ func main() {
 		scanner.Scan()
 		right, _ := strconv.Atoi(scanner.Text())
 		rights = append(rights, right)
+		rightFreqMap[right]++
 	}
 	sort.Ints(lefts)
 	sort.Ints(rights)
 
-	diff := 0
+	totalDistance := 0
+	similarityScore := 0
 	for i := range len(lefts) {
-		diff += absDiff(lefts[i], rights[i])
+		totalDistance += absDiff(lefts[i], rights[i])
+		similarityScore += lefts[i] * rightFreqMap[lefts[i]]
 	}
-	fmt.Println(diff)
+	fmt.Println(totalDistance)   // Part One
+	fmt.Println(similarityScore) // Part Two
 }
